@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: FastSplash.pm,v 1.9 2001/11/25 13:47:23 eserte Exp $
+# $Id: FastSplash.pm,v 1.10 2002/05/16 08:26:23 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999 Slaven Rezic. All rights reserved.
@@ -14,7 +14,7 @@
 
 package Tk::FastSplash;
 #use strict;use vars qw($TK_VERSION $VERSION);
-$VERSION = 0.08;
+$VERSION = $VERSION = 0.09;
 $TK_VERSION = 800 if !defined $TK_VERSION;
 
 sub Show {
@@ -64,6 +64,7 @@ sub Show {
 	my $l_path = '.splashlabel';
 	my $l = Tk::label($splash_screen, $l_path,
 			  @fontarg,
+			  -bd => 0,
 			  -image => 'splashphoto');
 	if (!ref $l) {
 	    # >= Tk803
@@ -102,7 +103,8 @@ Tk::FastSplash - create a fast starting splash screen
 
     BEGIN {
         require Tk::FastSplash;
-        $splash = Tk::FastSplash->Show($image, $width, $height, $title);
+        $splash = Tk::FastSplash->Show($image, $width, $height, $title,
+                                   $overrideredirect);
     }
     ...
     use Tk;
@@ -117,7 +119,9 @@ lowlevel perk/Tk stuff, so upward compatibility is not given (the
 module should work at least for Tk800.015 and .022). The splash screen is
 created with the B<Show> function. Supplied arguments are: filename of
 the displayed image, width and height of the image and the string for
-the title bar. If something goes wrong, then B<Show> will silently
+the title bar. If C<$overrideredirect> is set to a true value, then the
+splash screen will come without window manager decoration.
+If something goes wrong, then B<Show> will silently
 ignore all errors and continue without a splash screen. The splash
 screen can be destroyed with the B<Destroy> method, best short before
 calling B<MainLoop>.

@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: ProgressSplash.pm,v 1.3 2002/03/14 23:12:03 eserte Exp $
+# $Id: ProgressSplash.pm,v 1.4 2002/05/16 08:26:46 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 2001 Slaven Rezic. All rights reserved.
@@ -14,7 +14,7 @@
 
 package Tk::ProgressSplash;
 #use strict;use vars qw($TK_VERSION $VERSION $firstupdatetime $lastcallindex);
-$VERSION = 0.02;
+$VERSION = 0.03;
 $TK_VERSION = 800 if !defined $TK_VERSION;
 
 sub Show {
@@ -94,12 +94,15 @@ Tk::ProgressSplash - create a starting splash screen with a progress bar
     BEGIN {
         require Tk::ProgressSplash;
         $splash = Tk::ProgressSplash->Show(-splashtype => 'fast',
-                                           $image, $width, $height, $title);
+                                           $image, $width, $height, $title,
+                                           $overrideredirect);
     }
     ...
     use Tk;
     ...
     $splash->Update(0.1) if $splash;
+    ...
+    $splash->Update(1.0) if $splash;
     ...
     $splash->Destroy if $splash;
     MainLoop;
@@ -107,6 +110,35 @@ Tk::ProgressSplash - create a starting splash screen with a progress bar
 =head1 DESCRIPTION
 
 Create a splash screen with progress bar.
+
+=head2 METHODS
+
+=over
+
+=item Show
+
+The Show() method takes the same arguments as the Show() method of
+C<Tk::Splash> and additionaly:
+
+=over
+
+=item -splashtype
+
+Set to "fast" if you want to use C<Tk::FastSplash> instead of
+C<Tk::Splash> as the underlying splash widget.
+
+=back
+
+=item Update
+
+Advance the progressbar (and make it visible, if it was not yet
+visible). The argument is a fraction from 0 to 1.
+
+=item Destroy
+
+Destroy the splash widget.
+
+=back
 
 =head1 BUGS
 

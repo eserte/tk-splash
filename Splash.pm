@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: Splash.pm,v 1.6 2001/11/25 13:35:06 eserte Exp $
+# $Id: Splash.pm,v 1.7 2002/05/16 08:26:33 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999 Slaven Rezic. All rights reserved.
@@ -17,7 +17,7 @@ use Tk;
 use strict;
 use vars qw($VERSION @ISA);
 
-$VERSION = 0.04;
+$VERSION = 0.05;
 
 @ISA = qw(Tk::Widget);
 
@@ -39,7 +39,7 @@ sub Show {
     $image_height = $splashphoto->height unless defined $image_height;
     $splash_screen->geometry("+" . int($sw/2 - $image_width/2) .
 			     "+" . int($sh/2 - $image_height/2));
-    my $l = $splash_screen->Label(-image => $splashphoto)->pack
+    my $l = $splash_screen->Label(-image => $splashphoto, -bd => 0)->pack
       (-fill => 'both', -expand => 1);
     $splash_screen->update;
     $splash_screen->{"Exists"} = 1;
@@ -70,7 +70,8 @@ Tk::Splash - create a splash screen in a compatible way
 
     BEGIN {
         require Tk::Splash;
-        $splash = Tk::Splash->Show($image, $width, $height, $title);
+        $splash = Tk::Splash->Show($image, $width, $height, $title,
+                                   $overrideredirect);
     }
     ...
     use Tk;
