@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: FastSplash.pm,v 1.5 2000/05/29 21:19:22 eserte Exp $
+# $Id: FastSplash.pm,v 1.6 2000/11/06 22:06:02 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999 Slaven Rezic. All rights reserved.
@@ -14,7 +14,7 @@
 
 package Tk::FastSplash;
 #use strict;
-$VERSION = 0.04;
+$VERSION = 0.05;
 $TK_VERSION = 800 if !defined $TK_VERSION;
 
 sub Show {
@@ -53,10 +53,15 @@ sub Show {
 			? (-font => "Helvetica 10")
 			# no font for older Tk's
 			: ());
-	my $l = Tk::label($splash_screen, '.splashlabel',
+	my $l_path = '.splashlabel';
+	my $l = Tk::label($splash_screen, $l_path,
 			  @fontarg,
 			  -image => 'splashphoto');
-	$l->{'_TkValue_'} = '.splashlabel';
+	if (!ref $l) {
+	    # >= Tk803
+	    $l = Tk::Widget::Widget($splash_screen, $l);
+	}
+	$l->{'_TkValue_'} = $l_path;
 	bless $l, Tk::Widget;
 	Tk::pack($l, -fill => 'both', -expand => 1);
 	Tk::update($splash_screen);
@@ -101,7 +106,7 @@ Tk::FastSplash - create a fast starting splash screen
 
 This module creates a splash screen for perl/Tk programs. It uses
 lowlevel perk/Tk stuff, so upward compatibility is not given (the
-module should work at least for Tk800.015). The splash screen is
+module should work at least for Tk800.015 and .022). The splash screen is
 created with the B<Show> function. Supplied arguments are: filename of
 the displayed image, width and height of the image and the string for
 the title bar. If something goes wrong, then B<Show> will silently
@@ -118,6 +123,11 @@ set the variable C<$Tk::FastSplash::TK_VERSION> to a value less than
 Probably many.
 
 The $^W variable should be turned off until the "use Tk" call.
+
+If FastSplash is executed in a BEGIN block (which is recommended for
+full speed), then strange things will happen when using "perl -c" or
+trying to compile a script: the splash screen will always pop up while
+doing those things.
 
 =head1 AUTHOR
 
