@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: FastSplash.pm,v 1.16 2003/04/26 12:47:26 eserte Exp $
+# $Id: FastSplash.pm,v 1.17 2003/11/21 17:45:42 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999,2003 Slaven Rezic. All rights reserved.
@@ -14,7 +14,7 @@
 
 package Tk::FastSplash;
 #use strict;use vars qw($TK_VERSION $VERSION);
-$VERSION = $VERSION = 0.12;
+$VERSION = $VERSION = 0.13;
 $TK_VERSION = 800 if !defined $TK_VERSION;
 
 sub Show {
@@ -32,10 +32,23 @@ sub Show {
 	sub TranslateFileName { $_[0] }
 	sub SplitString { split /\s+/, $_[0] } # rough approximation
 
-	package
-	    Tk::Photo; # hide from indexer
-	@Tk::Photo::ISA = qw(DynaLoader);
-	bootstrap Tk::Photo;
+	if (Tk::FontRankInfo->can("encoding")) {
+	    $Tk::FastSplash::TK_VERSION = 804;
+	}
+
+	if ($Tk::FastSplash::TK_VERSION < 804) {
+	    package
+		Tk::Photo; # hide from indexer
+	    @Tk::Photo::ISA = qw(DynaLoader);
+	    bootstrap Tk::Photo;
+	}
+
+	if ($Tk::FastSplash::TK_VERSION >= 804) {
+	    *Tk::getEncoding = sub {
+		require Tk::DummyEncode;
+		return Tk::DummyEncode->getEncoding("iso8859-1");
+	    };
+	}
 
 	package Tk::FastSplash;
 	sub _Destroyed { }

@@ -3,7 +3,7 @@ use ExtUtils::MakeMaker;
 # the contents of the Makefile that is written.
 WriteMakefile(
     'NAME'	=> 'Tk::Splash',
-    'VERSION'   => '0.11',
+    'VERSION'   => '0.12',
     'dist'      => {'POSTOP'=>'-$(CHMOD) 644 $(DISTVNAME).tar$(SUFFIX)'},
     'ABSTRACT_FROM' => 'Splash.pm',
     'AUTHOR' => 'Slaven Rezic (srezic@cpan.org)',
@@ -13,7 +13,7 @@ WriteMakefile(
 sub MY::postamble {
     my $postamble = "";
 
-    if (defined $ENV{USER} && $ENV{USER} eq 'eserte') {
+    if (defined $ENV{USER} && $ENV{USER} eq 'eserte' && $^O =~ /bsd/i && -f "../../perl.release.mk") {
 	$postamble .= <<'EOF';
 
 .include "../../perl.release.mk"
