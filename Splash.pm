@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: Splash.pm,v 1.7 2002/05/16 08:26:33 eserte Exp $
+# $Id: Splash.pm,v 1.8 2002/07/19 16:24:16 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999 Slaven Rezic. All rights reserved.
@@ -86,9 +86,8 @@ than B<Tk::FastSplash>, but tries to be compatible by using standard
 Tk methods for creation.
 
 The arguments to the B<Show> are the same as in
-L<Tk::FastSplash|Tk::FastSplash>. C<$width> and C<$height> are purely
-optional and only here for compatibility with B<Tk::FastSplash>. For
-further documentation, see L<Tk::FastSplash>.
+L<Tk::FastSplash|Tk::FastSplash>. For further documentation, see
+L<Tk::FastSplash>.
 
 =head1 NOTES
 
