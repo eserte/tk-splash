@@ -7,16 +7,22 @@ WriteMakefile(
     'dist'      => {'POSTOP'=>'-$(CHMOD) 644 $(DISTVNAME).tar$(SUFFIX)'},
     'ABSTRACT_FROM' => 'Splash.pm',
     'AUTHOR' => 'Slaven Rezic (srezic@cpan.org)',
+    'PREREQ_PM' => {'Tk' => 800},
 );
 
 sub MY::postamble {
+    my $postamble = "";
+
     if (defined $ENV{USER} && $ENV{USER} eq 'eserte') {
-	<<'EOF';
-release :: dist
-	cpan-upload $(DISTVNAME).tar$(SUFFIX)
+	$postamble .= <<'EOF';
+
+.include "../../perl.release.mk"
+.include "../../perl.cvs.mk"
 
 EOF
     }
+
+    $postamble;
 }
 
 __END__
