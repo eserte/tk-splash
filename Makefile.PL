@@ -9,3 +9,15 @@ WriteMakefile(
     'ABSTRACT_FROM' => 'Splash.pm',
     'AUTHOR' => 'Slaven Rezic (srezic@cpan.org)',
 );
+
+sub MY::postamble {
+    if (defined $ENV{USER} && $ENV{USER} eq 'eserte') {
+	<<'EOF';
+release :: dist
+	cpan-upload $(DISTVNAME).tar$(SUFFIX)
+
+EOF
+    }
+}
+
+__END__
