@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: FastSplash.pm,v 1.3 1999/12/20 23:51:10 eserte Exp $
+# $Id: FastSplash.pm,v 1.4 1999/12/21 20:27:45 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999 Slaven Rezic. All rights reserved.
@@ -14,7 +14,8 @@
 
 package Tk::FastSplash;
 #use strict;
-$VERSION = 0.02;
+$VERSION = 0.03;
+$TK_VERSION = 800 if !defined $TK_VERSION;
 
 sub Show {
     my($pkg, $image_file, $image_width, $image_height, $title) = @_;
@@ -45,9 +46,10 @@ sub Show {
 	       "+" . int($sw/2 - $image_width/2) .
 	       "+" . int($sh/2 - $image_height/2));
 
-	my(@fontarg) = (defined &Tk::Font::DESTROY
+	my(@fontarg) = ($TK_VERSION >= 800
 			# dummy font to satisfy SplitString
 			? (-font => "Helvetica 10")
+			# no font for older Tk's
 			: ());
 	my $l = Tk::label($splash_screen, '.splashlabel',
 			  @fontarg,
@@ -97,14 +99,18 @@ Tk::FastSplash - create a fast starting splash screen
 =head1 DESCRIPTION
 
 This module creates a splash screen for perl/Tk programs. It uses
-lowlevel perk/Tk stuff, so upward compatibility is not given (however,
-the module should work for Tk402.xxx and Tk800.xxx). The splash screen
-is created with the B<Show> function. Supplied arguments are: filename
-of the displayed image, width and height of the image and the string
-for the title bar. If something goes wrong, then B<Show> will silently
+lowlevel perk/Tk stuff, so upward compatibility is not given (the
+module should work at least for Tk800.015). The splash screen is
+created with the B<Show> function. Supplied arguments are: filename of
+the displayed image, width and height of the image and the string for
+the title bar. If something goes wrong, then B<Show> will silently
 ignore all errors and continue without a splash screen. The splash
 screen can be destroyed with the B<Destroy> method, best short before
 calling B<MainLoop>.
+
+If you want to run this module on a Tk402.xxx system, then you have to
+set the variable C<$Tk::FastSplash::TK_VERSION> to a value less than
+800.
 
 =head1 BUGS
 
