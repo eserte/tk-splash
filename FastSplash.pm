@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: FastSplash.pm,v 1.17 2003/11/21 17:45:42 eserte Exp $
+# $Id: FastSplash.pm,v 1.18 2003/11/21 18:30:56 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999,2003 Slaven Rezic. All rights reserved.
@@ -14,7 +14,7 @@
 
 package Tk::FastSplash;
 #use strict;use vars qw($TK_VERSION $VERSION);
-$VERSION = $VERSION = 0.13;
+$VERSION = $VERSION = 0.14;
 $TK_VERSION = 800 if !defined $TK_VERSION;
 
 sub Show {
@@ -44,10 +44,7 @@ sub Show {
 	}
 
 	if ($Tk::FastSplash::TK_VERSION >= 804) {
-	    *Tk::getEncoding = sub {
-		require Tk::DummyEncode;
-		return Tk::DummyEncode->getEncoding("iso8859-1");
-	    };
+	    *Tk::getEncoding = \&Tk::FastSplash::getEncoding;
 	}
 
 	package Tk::FastSplash;
@@ -115,6 +112,50 @@ sub Destroy {
 	Tk::catch(sub { Tk::destroy($w) });
     }
 }
+
+# Taken from Tk.pm (Tk804.025_beta6)
+sub getEncoding
+{
+ my ($class,$name) = @_;
+
+ eval { require Encode };
+ if ($@)
+  {
+   require Tk::DummyEncode;
+   return Tk::DummyEncode->getEncoding($name);
+  }
+
+ $Tk::encodeStopOnError = Encode::FB_QUIET();
+ $Tk::encodeFallback    = Encode::FB_PERLQQ(); # Encode::FB_DEFAULT();
+
+ $name = $Tk::font_encoding{$name} if exists $Tk::font_encoding{$name};
+ my $enc = Encode::find_encoding($name);
+
+ unless ($enc)
+  {
+   $enc = Encode::find_encoding($name) if ($name =~ s/[-_]\d+$//)
+  }
+# if ($enc)
+#  {
+#   print STDERR "Lookup '$name' => ".$enc->name."\n";
+#  }
+# else
+#  {
+#   print STDERR "Failed '$name'\n";
+#  }
+ unless ($enc)
+  {
+   if ($name eq 'X11ControlChars')
+    {
+     require Tk::DummyEncode;
+     $Encode::encoding{$name} = $enc = Tk::DummyEncode->getEncoding($name);
+    }
+  }
+ return $enc;
+}
+
+
+
 
 1;
 
