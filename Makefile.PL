@@ -3,7 +3,7 @@ use ExtUtils::MakeMaker;
 # the contents of the Makefile that is written.
 WriteMakefile(
     'NAME'	=> 'Tk::Splash',
-    'VERSION'   => '0.04',
+    'VERSION'   => '0.05',
     'dist'      => {'COMPRESS'=>'gzip -9f', 'SUFFIX' => '.gz',
                     'POSTOP'=>'-$(CHMOD) 644 $(DISTVNAME).tar$(SUFFIX)'},
     'ABSTRACT_FROM' => 'Splash.pm',
