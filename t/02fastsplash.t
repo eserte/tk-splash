@@ -32,6 +32,7 @@ BEGIN {
 use Tk;
 
 $top=tkinit;
+$top->Label(-text => "הצü")->pack;
 $top->update;
 
 $splash->Destroy;
