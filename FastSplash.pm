@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: FastSplash.pm,v 1.11 2002/07/19 16:24:05 eserte Exp $
+# $Id: FastSplash.pm,v 1.12 2002/07/22 00:58:51 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999 Slaven Rezic. All rights reserved.
@@ -49,6 +49,7 @@ sub Show {
 	my $img = Tk::image($splash_screen, 'create', 'photo', 'splashphoto',
 			    -file => $image_file);
 	bless $img, 'Tk::Image';
+	$splash_screen->{Photo} = $img;
 	$image_width = $img->width if !defined $image_width;
 	$image_height = $img->height if !defined $image_height;
 	my $sw = Tk::winfo($splash_screen, 'screenwidth');
@@ -91,6 +92,10 @@ sub Raise {
 
 sub Destroy {
     my $w = shift;
+    if ($w->{Photo}) {
+	$w->{Photo}->delete;
+	undef $w->{Photo};
+    }
     if ($w->{"Exists"}) {
 	Tk::catch { Tk::destroy($w) };
     }

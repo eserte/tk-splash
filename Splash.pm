@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: Splash.pm,v 1.8 2002/07/19 16:24:16 eserte Exp $
+# $Id: Splash.pm,v 1.9 2002/07/22 00:58:38 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999 Slaven Rezic. All rights reserved.
@@ -31,7 +31,7 @@ sub Show {
     if ($override) {
 	$splash_screen->overrideredirect(1);
     }
-    my $splashphoto = $splash_screen->Photo(-file => $image_file);
+    my $splashphoto = $splash_screen->{Photo} = $splash_screen->Photo(-file => $image_file);
     my $sw = $splash_screen->screenwidth;
     my $sh = $splash_screen->screenheight;
     $image_width  = $splashphoto->width unless defined $image_width;
@@ -55,6 +55,10 @@ sub Raise {
 
 sub Destroy {
     my $w = shift;
+    if ($w->{Photo}) {
+	$w->{Photo}->delete;
+	undef $w->{Photo};
+    }
     if ($w->{"Exists"}) {
 	Tk::catch { Tk::destroy($w) };
     }
