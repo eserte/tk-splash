@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: Splash.pm,v 1.5 2001/06/05 22:21:42 eserte Exp $
+# $Id: Splash.pm,v 1.6 2001/11/25 13:35:06 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999 Slaven Rezic. All rights reserved.
@@ -35,6 +35,7 @@ sub Show {
     my $sw = $splash_screen->screenwidth;
     my $sh = $splash_screen->screenheight;
     $image_width  = $splashphoto->width unless defined $image_width;
+    $splash_screen->{ImageWidth} = $image_width;
     $image_height = $splashphoto->height unless defined $image_height;
     $splash_screen->geometry("+" . int($sw/2 - $image_width/2) .
 			     "+" . int($sh/2 - $image_height/2));

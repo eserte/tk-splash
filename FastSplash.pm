@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: FastSplash.pm,v 1.7 2001/06/05 22:21:45 eserte Exp $
+# $Id: FastSplash.pm,v 1.8 2001/11/25 13:35:00 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999 Slaven Rezic. All rights reserved.
@@ -14,7 +14,7 @@
 
 package Tk::FastSplash;
 #use strict;
-$VERSION = 0.06;
+$VERSION = 0.07;
 $TK_VERSION = 800 if !defined $TK_VERSION;
 
 sub Show {
@@ -53,6 +53,8 @@ sub Show {
 	Tk::wm($splash_screen, "geometry",
 	       "+" . int($sw/2 - $image_width/2) .
 	       "+" . int($sh/2 - $image_height/2));
+
+	$splash_screen->{ImageWidth} = $image_width;
 
 	my(@fontarg) = ($TK_VERSION >= 800
 			# dummy font to satisfy SplitString
@@ -105,7 +107,7 @@ Tk::FastSplash - create a fast starting splash screen
     ...
     use Tk;
     ...
-    $splash->Destroy;
+    $splash->Destroy if $splash;
     MainLoop;
 
 =head1 DESCRIPTION
@@ -134,6 +136,9 @@ If FastSplash is executed in a BEGIN block (which is recommended for
 full speed), then strange things will happen when using "perl -c" or
 trying to compile a script: the splash screen will always pop up while
 doing those things.
+
+The -display switch is not honoured (but setting the environment
+variable DISPLAY will work).
 
 =head1 AUTHOR
 
