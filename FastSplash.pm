@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: FastSplash.pm,v 1.4 1999/12/21 20:27:45 eserte Exp $
+# $Id: FastSplash.pm,v 1.5 2000/05/29 21:19:22 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999 Slaven Rezic. All rights reserved.
@@ -14,7 +14,7 @@
 
 package Tk::FastSplash;
 #use strict;
-$VERSION = 0.03;
+$VERSION = 0.04;
 $TK_VERSION = 800 if !defined $TK_VERSION;
 
 sub Show {
@@ -38,6 +38,8 @@ sub Show {
 	sub _Destroyed { }
 	$splash_screen = Tk::MainWindow::Create(".", $title);
 	bless $splash_screen, Tk::MainWindow;
+	$splash_screen->{"Exists"} = 1;
+
 	Tk::image($splash_screen, 'create', 'photo', 'splashphoto',
 		  -file => $image_file);
 	my $sw = Tk::winfo($splash_screen, 'screenwidth');
@@ -58,7 +60,6 @@ sub Show {
 	bless $l, Tk::Widget;
 	Tk::pack($l, -fill => 'both', -expand => 1);
 	Tk::update($splash_screen);
-	$splash_screen->{"Exists"} = 1;
     };
     warn $@ if $@;
     bless $splash_screen, $pkg;
