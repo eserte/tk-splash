@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: FastSplash.pm,v 1.2 1999/12/20 22:29:28 eserte Exp $
+# $Id: FastSplash.pm,v 1.3 1999/12/20 23:51:10 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999 Slaven Rezic. All rights reserved.
@@ -12,7 +12,9 @@
 # WWW:  http://user.cs.tu-berlin.de/~eserte/
 #
 
-package Tk::Splash;
+package Tk::FastSplash;
+#use strict;
+$VERSION = 0.02;
 
 sub Show {
     my($pkg, $image_file, $image_width, $image_height, $title) = @_;
@@ -31,7 +33,7 @@ sub Show {
 	@ISA = qw(DynaLoader);
 	bootstrap Tk::Photo;
 
-	package Tk::Splash;
+	package Tk::FastSplash;
 	sub _Destroyed { }
 	$splash_screen = Tk::MainWindow::Create(".", $title);
 	bless $splash_screen, Tk::MainWindow;
@@ -42,15 +44,19 @@ sub Show {
 	Tk::wm($splash_screen, "geometry",
 	       "+" . int($sw/2 - $image_width/2) .
 	       "+" . int($sh/2 - $image_height/2));
+
+	my(@fontarg) = (defined &Tk::Font::DESTROY
+			# dummy font to satisfy SplitString
+			? (-font => "Helvetica 10")
+			: ());
 	my $l = Tk::label($splash_screen, '.splashlabel',
-			  # dummy font to satisfy SplitString
-			  -font => "Helvetica 10",
+			  @fontarg,
 			  -image => 'splashphoto');
 	$l->{'_TkValue_'} = '.splashlabel';
 	bless $l, Tk::Widget;
 	Tk::pack($l, -fill => 'both', -expand => 1);
 	Tk::update($splash_screen);
-	$splash_screen->{Exists} = 1;
+	$splash_screen->{"Exists"} = 1;
     };
     warn $@ if $@;
     bless $splash_screen, $pkg;
@@ -58,14 +64,14 @@ sub Show {
 
 sub Raise {
     my $w = shift;
-    if ($w->{Exists}) {
+    if ($w->{"Exists"}) {
 	Tk::catch { Tk::raise($w) };
     }
 }
 
 sub Destroy {
     my $w = shift;
-    if ($w->{Exists}) {
+    if ($w->{"Exists"}) {
 	Tk::catch { Tk::destroy($w) };
     }
 }
@@ -74,13 +80,13 @@ sub Destroy {
 
 =head1 NAME
 
-Tk::Splash - create a fast starting splash screen
+Tk::FastSplash - create a fast starting splash screen
 
 =head1 SYNOPSIS
 
     BEGIN {
-        require Tk::Splash;
-        $splash = Tk::Splash->Show($image, $width, $height, $title);
+        require Tk::FastSplash;
+        $splash = Tk::FastSplash->Show($image, $width, $height, $title);
     }
     ...
     use Tk;
@@ -99,6 +105,12 @@ for the title bar. If something goes wrong, then B<Show> will silently
 ignore all errors and continue without a splash screen. The splash
 screen can be destroyed with the B<Destroy> method, best short before
 calling B<MainLoop>.
+
+=head1 BUGS
+
+Probably many.
+
+The $^W variable should be turned off until the "use Tk" call.
 
 =head1 AUTHOR
 
