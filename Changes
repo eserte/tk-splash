@@ -1,5 +1,8 @@
 Revision history for Perl extension Tk::Splash.
 
+0.05
+	Additional override parameter for FastSplash.pm
+
 0.04
 	Another fix for FastSplash.pm (setting Exists manually)
 	Documentation fix
