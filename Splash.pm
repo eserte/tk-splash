@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: Splash.pm,v 1.4 2000/05/29 21:19:46 eserte Exp $
+# $Id: Splash.pm,v 1.5 2001/06/05 22:21:42 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999 Slaven Rezic. All rights reserved.
@@ -17,16 +17,20 @@ use Tk;
 use strict;
 use vars qw($VERSION @ISA);
 
-$VERSION = 0.03;
+$VERSION = 0.04;
 
 @ISA = qw(Tk::Widget);
 
 sub Show {
-    my($pkg, $image_file, $image_width, $image_height, $title) = @_;
+    my($pkg,
+       $image_file, $image_width, $image_height, $title, $override) = @_;
     $title = $0 if !defined $title;
     my $splash_screen = {};
     $splash_screen = new MainWindow;
     $splash_screen->title($title);
+    if ($override) {
+	$splash_screen->overrideredirect(1);
+    }
     my $splashphoto = $splash_screen->Photo(-file => $image_file);
     my $sw = $splash_screen->screenwidth;
     my $sh = $splash_screen->screenheight;

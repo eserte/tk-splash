@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: FastSplash.pm,v 1.6 2000/11/06 22:06:02 eserte Exp $
+# $Id: FastSplash.pm,v 1.7 2001/06/05 22:21:45 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999 Slaven Rezic. All rights reserved.
@@ -14,11 +14,12 @@
 
 package Tk::FastSplash;
 #use strict;
-$VERSION = 0.05;
+$VERSION = 0.06;
 $TK_VERSION = 800 if !defined $TK_VERSION;
 
 sub Show {
-    my($pkg, $image_file, $image_width, $image_height, $title) = @_;
+    my($pkg,
+       $image_file, $image_width, $image_height, $title, $override) = @_;
     $title = $0 if !defined $title;
     my $splash_screen = {};
     eval {
@@ -39,6 +40,11 @@ sub Show {
 	$splash_screen = Tk::MainWindow::Create(".", $title);
 	bless $splash_screen, Tk::MainWindow;
 	$splash_screen->{"Exists"} = 1;
+
+	if ($override) {
+	    require Tk::Wm;
+	    $splash_screen->overrideredirect(1);
+	}
 
 	Tk::image($splash_screen, 'create', 'photo', 'splashphoto',
 		  -file => $image_file);
