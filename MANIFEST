@@ -1,0 +1,8 @@
+Changes
+MANIFEST
+Makefile.PL
+Splash.pm
+FastSplash.pm
+t/00splash.t
+t/01fastsplash.t
+README

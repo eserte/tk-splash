@@ -1,0 +1,24 @@
+README
+------
+
+This is Tk::Splash, a perl/Tk module for creating splash screens.
+There is nothing special about Tk::Splash, as it is only here for
+compatibility issues. However, the companion module, Tk::SafeSplash,
+uses some internal perl/Tk magic to create the splash screen very
+fast.
+
+Tk::Splash should work with older (402.*) and newer (800.*) Tk's.
+Future compatibility of Tk::SafeSplash cannot be assured :-)
+
+Installation
+
+	perl Makefile.PL
+	make
+	make test
+	make install
+
+Author
+
+Send comments, bug reports & fixes, suggestions to Slaven Rezic
+(eserte@cs.tu-berlin.de). 
+
