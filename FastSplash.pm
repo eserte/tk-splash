@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: FastSplash.pm,v 1.1 1999/12/11 12:22:00 eserte Exp $
+# $Id: FastSplash.pm,v 1.2 1999/12/20 22:29:28 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999 Slaven Rezic. All rights reserved.
@@ -44,9 +44,7 @@ sub Show {
 	       "+" . int($sh/2 - $image_height/2));
 	my $l = Tk::label($splash_screen, '.splashlabel',
 			  # dummy font to satisfy SplitString
-			  ($Tk::XS_VERSION >= 800
-			   ? (-font => "Helvetica 10")
-			   : ()),
+			  -font => "Helvetica 10",
 			  -image => 'splashphoto');
 	$l->{'_TkValue_'} = '.splashlabel';
 	bless $l, Tk::Widget;
