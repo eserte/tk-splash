@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: Splash.pm,v 1.2 1999/12/20 23:51:21 eserte Exp $
+# $Id: Splash.pm,v 1.3 2000/01/12 21:09:25 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999 Slaven Rezic. All rights reserved.
@@ -83,6 +83,12 @@ The arguments to the B<Show> are the same as in
 L<Tk::FastSplash|Tk::FastSplash>. C<$width> and C<$height> are purely
 optional and only here for compatibility with B<Tk::FastSplash>. For
 further documentation, see L<Tk::FastSplash>.
+
+=head1 NOTES
+
+Since displaying the splash screen is done during compile time, the
+splash screen will also occur if the script is started using perl's C<-c>
+(check) switch.
 
 =head1 AUTHOR
 
