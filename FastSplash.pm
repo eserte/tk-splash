@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: FastSplash.pm,v 1.12 2002/07/22 00:58:51 eserte Exp $
+# $Id: FastSplash.pm,v 1.13 2002/07/22 20:23:04 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999 Slaven Rezic. All rights reserved.
@@ -138,9 +138,22 @@ If you want to run this module on a Tk402.xxx system, then you have to
 set the variable C<$Tk::FastSplash::TK_VERSION> to a value less than
 800.
 
+=head1 CAVEAT
+
+This module does forbidden things e.g. bootstrapping the Tk shared
+object or poking in the Perl/Tk internals. Because of this, this
+module can stop working in a new Perl/Tk release. If you are concerned
+about compatibility, then you should use C<Tk::Splash> instead. If
+your primary concern is speed, then C<Tk::FastSplash> is for you (and
+the primary reason I wrote this module). The splash window of
+C<Tk::FastSplash> should pop up 1 or 2 seconds faster than using
+C<Tk::Splash> or a vanilla C<Tk::Toplevel> window.
+
 =head1 BUGS
 
 Probably many.
+
+You cannot call C<Tk::FastSplash> twice in one application.
 
 The $^W variable should be turned off until the "use Tk" call.
 
