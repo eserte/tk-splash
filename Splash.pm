@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: Splash.pm,v 1.3 2000/01/12 21:09:25 eserte Exp $
+# $Id: Splash.pm,v 1.4 2000/05/29 21:19:46 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999 Slaven Rezic. All rights reserved.
@@ -17,7 +17,7 @@ use Tk;
 use strict;
 use vars qw($VERSION @ISA);
 
-$VERSION = 0.02;
+$VERSION = 0.03;
 
 @ISA = qw(Tk::Widget);
 
