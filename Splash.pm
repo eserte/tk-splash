@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: Splash.pm,v 1.1 1999/12/20 22:29:40 eserte Exp $
+# $Id: Splash.pm,v 1.2 1999/12/20 23:51:21 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999 Slaven Rezic. All rights reserved.
@@ -12,8 +12,13 @@
 # WWW:  http://user.cs.tu-berlin.de/~eserte/
 #
 
-package Tk::SafeSplash;
+package Tk::Splash;
 use Tk;
+use strict;
+use vars qw($VERSION @ISA);
+
+$VERSION = 0.02;
+
 @ISA = qw(Tk::Widget);
 
 sub Show {
@@ -32,20 +37,20 @@ sub Show {
     my $l = $splash_screen->Label(-image => $splashphoto)->pack
       (-fill => 'both', -expand => 1);
     $splash_screen->update;
-    $splash_screen->{Exists} = 1;
+    $splash_screen->{"Exists"} = 1;
     bless $splash_screen, $pkg;
 }
 
 sub Raise {
     my $w = shift;
-    if ($w->{Exists}) {
+    if ($w->{"Exists"}) {
 	Tk::catch { Tk::raise($w) };
     }
 }
 
 sub Destroy {
     my $w = shift;
-    if ($w->{Exists}) {
+    if ($w->{"Exists"}) {
 	Tk::catch { Tk::destroy($w) };
     }
 }
@@ -54,13 +59,13 @@ sub Destroy {
 
 =head1 NAME
 
-Tk::SafeSplash - create a fast starting splash screen in a compatible way
+Tk::Splash - create a splash screen in a compatible way
 
 =head1 SYNOPSIS
 
     BEGIN {
-        require Tk::SafeSplash;
-        $splash = Tk::SafeSplash->Show($image, $width, $height, $title);
+        require Tk::Splash;
+        $splash = Tk::Splash->Show($image, $width, $height, $title);
     }
     ...
     use Tk;
@@ -71,12 +76,13 @@ Tk::SafeSplash - create a fast starting splash screen in a compatible way
 =head1 DESCRIPTION
 
 This module is another way to create a splash screen. It is slower
-than L<Tk::Splash|Tk::Splash>, but tries to be compatible by using
-standard Tk methods for creation.
+than B<Tk::FastSplash>, but tries to be compatible by using standard
+Tk methods for creation.
 
 The arguments to the B<Show> are the same as in
-L<Tk::Splash|Tk::Splash>. C<$width> and C<$height> are purely
-optional. For further documentation, see L<Tk::Splash>.
+L<Tk::FastSplash|Tk::FastSplash>. C<$width> and C<$height> are purely
+optional and only here for compatibility with B<Tk::FastSplash>. For
+further documentation, see L<Tk::FastSplash>.
 
 =head1 AUTHOR
 
@@ -84,7 +90,7 @@ Slaven Rezic
 
 =head1 SEE ALSO
 
-L<Tk::Splash>
+L<Tk::FastSplash>
 
 =cut
 
