@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: ProgressSplash.pm,v 1.2 2001/11/25 13:45:38 eserte Exp $
+# $Id: ProgressSplash.pm,v 1.3 2002/03/14 23:12:03 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 2001 Slaven Rezic. All rights reserved.
@@ -13,7 +13,7 @@
 #
 
 package Tk::ProgressSplash;
-#use strict;use vars qw($TK_VERSION $VERSION);
+#use strict;use vars qw($TK_VERSION $VERSION $firstupdatetime $lastcallindex);
 $VERSION = 0.02;
 $TK_VERSION = 800 if !defined $TK_VERSION;
 
@@ -71,6 +71,16 @@ sub Update {
     my($w, $frac) = @_;
     Tk::configure($w->{ProgressFrame}, -width => $w->{ImageWidth}*$frac);
     Tk::update($w);
+    if ($ENV{TK_SPLASH_COMPUTE}) {
+	if (!defined $lastcallindex) {
+	    $lastcallindex = 0;
+	    $firstupdatetime = Tk::timeofday();
+	} else {
+	    $lastcallindex++;
+	    my $time = Tk::timeofday() - $firstupdatetime;
+	    print "Update $lastcallindex $time\n";
+	}
+    }
 }
 
 1;
