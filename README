@@ -3,9 +3,9 @@ README
 
 This is Tk::Splash, a perl/Tk module for creating splash screens.
 There is nothing special about Tk::Splash (it's just a toplevel with
-an embedded issue), as it is only here for compatibility issues.
+an embedded image), as it is only here for compatibility issues.
 However, the companion module, Tk::FastSplash, uses some internal
-perl/Tk magic to create the splash screen very fast.
+perl/Tk magic to create the splash screen as fast as possible.
 
 Tk::Splash should work with older (402.*) and newer (800.*) Tk's.
 Tk::FastSplash will only work with newer Tk's (800.* and upwards), but
@@ -23,5 +23,5 @@ Installation
 Author
 
 Send comments, bug reports & fixes, suggestions to Slaven Rezic
-(slaven.rezic@berlin.de). 
+(slaven@rezic.de). 
 
