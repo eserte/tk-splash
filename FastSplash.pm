@@ -1,20 +1,20 @@
 # -*- perl -*-
 
 #
-# $Id: FastSplash.pm,v 1.13 2002/07/22 20:23:04 eserte Exp $
+# $Id: FastSplash.pm,v 1.14 2003/01/07 18:46:28 eserte Exp $
 # Author: Slaven Rezic
 #
-# Copyright (C) 1999 Slaven Rezic. All rights reserved.
+# Copyright (C) 1999,2003 Slaven Rezic. All rights reserved.
 # This package is free software; you can redistribute it and/or
 # modify it under the same terms as Perl itself.
 #
-# Mail: eserte@cs.tu-berlin.de
-# WWW:  http://user.cs.tu-berlin.de/~eserte/
+# Mail: srezic@cpan.org
+# WWW:  http://www.rezic.de/eserte/
 #
 
 package Tk::FastSplash;
 #use strict;use vars qw($TK_VERSION $VERSION);
-$VERSION = $VERSION = 0.10;
+$VERSION = $VERSION = 0.11;
 $TK_VERSION = 800 if !defined $TK_VERSION;
 
 sub Show {
@@ -86,7 +86,7 @@ sub Show {
 sub Raise {
     my $w = shift;
     if ($w->{"Exists"}) {
-	Tk::catch { Tk::raise($w) };
+	Tk::catch(sub { Tk::raise($w) });
     }
 }
 
@@ -97,7 +97,7 @@ sub Destroy {
 	undef $w->{Photo};
     }
     if ($w->{"Exists"}) {
-	Tk::catch { Tk::destroy($w) };
+	Tk::catch(sub { Tk::destroy($w) });
     }
 }
 
