@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: FastSplash.pm,v 1.10 2002/05/16 08:26:23 eserte Exp $
+# $Id: FastSplash.pm,v 1.11 2002/07/19 16:24:05 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999 Slaven Rezic. All rights reserved.
@@ -14,7 +14,7 @@
 
 package Tk::FastSplash;
 #use strict;use vars qw($TK_VERSION $VERSION);
-$VERSION = $VERSION = 0.09;
+$VERSION = $VERSION = 0.10;
 $TK_VERSION = 800 if !defined $TK_VERSION;
 
 sub Show {
@@ -46,8 +46,11 @@ sub Show {
 	    $splash_screen->overrideredirect(1);
 	}
 
-	Tk::image($splash_screen, 'create', 'photo', 'splashphoto',
-		  -file => $image_file);
+	my $img = Tk::image($splash_screen, 'create', 'photo', 'splashphoto',
+			    -file => $image_file);
+	bless $img, 'Tk::Image';
+	$image_width = $img->width if !defined $image_width;
+	$image_height = $img->height if !defined $image_height;
 	my $sw = Tk::winfo($splash_screen, 'screenwidth');
 	my $sh = Tk::winfo($splash_screen, 'screenheight');
 	Tk::wm($splash_screen, "geometry",
@@ -116,15 +119,15 @@ Tk::FastSplash - create a fast starting splash screen
 
 This module creates a splash screen for perl/Tk programs. It uses
 lowlevel perk/Tk stuff, so upward compatibility is not given (the
-module should work at least for Tk800.015 and .022). The splash screen is
-created with the B<Show> function. Supplied arguments are: filename of
-the displayed image, width and height of the image and the string for
-the title bar. If C<$overrideredirect> is set to a true value, then the
-splash screen will come without window manager decoration.
-If something goes wrong, then B<Show> will silently
-ignore all errors and continue without a splash screen. The splash
-screen can be destroyed with the B<Destroy> method, best short before
-calling B<MainLoop>.
+module should work at least for Tk800.015 and .022). The splash screen
+is created with the B<Show> function. Supplied arguments are: filename
+of the displayed image, width and height of the image and the string
+for the title bar. C<$width> and C<$height> may be left undefined. If
+C<$overrideredirect> is set to a true value, then the splash screen
+will come without window manager decoration. If something goes wrong,
+then B<Show> will silently ignore all errors and continue without a
+splash screen. The splash screen can be destroyed with the B<Destroy>
+method, best short before calling B<MainLoop>.
 
 If you want to run this module on a Tk402.xxx system, then you have to
 set the variable C<$Tk::FastSplash::TK_VERSION> to a value less than
@@ -137,7 +140,7 @@ Probably many.
 The $^W variable should be turned off until the "use Tk" call.
 
 If FastSplash is executed in a BEGIN block (which is recommended for
-full speed), then strange things will happen when using "perl -c" or
+full speed), then strange things will happen when using C<perl -c> or
 trying to compile a script: the splash screen will always pop up while
 doing those things.
 
