@@ -1,5 +1,11 @@
 Revision history for Perl extension Tk::Splash.
 
+0.13
+	another workaround for the Tk804 workaround
+
+0.12
+	Tk804 compat workaround for Tk::FastSplash
+
 0.11
 	hide some packages from CPAN indexer in Tk::FastSplash
 
