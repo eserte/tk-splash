@@ -24,7 +24,7 @@ sub findINC
 
 BEGIN {
     $splash = Tk::FastSplash->Show(findINC("Tk", "Xcamel.gif"),
-				   60, 60, "OR=1", 1);
+				   undef, undef, "OR=1", 1);
     print "ok 2\n";
     sleep 1;
 }
