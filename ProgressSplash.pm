@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: ProgressSplash.pm,v 1.5 2002/07/22 00:58:45 eserte Exp $
+# $Id: ProgressSplash.pm,v 1.6 2002/07/28 15:41:40 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 2001 Slaven Rezic. All rights reserved.
@@ -78,7 +78,7 @@ sub Update {
 	} else {
 	    $lastcallindex++;
 	    my $time = Tk::timeofday() - $firstupdatetime;
-	    print "Update $lastcallindex $time\n";
+	    print "    $time,\t# Update $lastcallindex\n";
 	}
     }
 }
