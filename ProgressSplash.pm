@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: ProgressSplash.pm,v 1.4 2002/05/16 08:26:46 eserte Exp $
+# $Id: ProgressSplash.pm,v 1.5 2002/07/22 00:58:45 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 2001 Slaven Rezic. All rights reserved.
@@ -125,7 +125,8 @@ C<Tk::Splash> and additionaly:
 =item -splashtype
 
 Set to "fast" if you want to use C<Tk::FastSplash> instead of
-C<Tk::Splash> as the underlying splash widget.
+C<Tk::Splash> as the underlying splash widget. "normal", "safe" or
+"slow" may be used for C<Tk::Splash>.
 
 =back
 
