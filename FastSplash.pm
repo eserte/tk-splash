@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: FastSplash.pm,v 1.8 2001/11/25 13:35:00 eserte Exp $
+# $Id: FastSplash.pm,v 1.9 2001/11/25 13:47:23 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999 Slaven Rezic. All rights reserved.
@@ -13,8 +13,8 @@
 #
 
 package Tk::FastSplash;
-#use strict;
-$VERSION = 0.07;
+#use strict;use vars qw($TK_VERSION $VERSION);
+$VERSION = 0.08;
 $TK_VERSION = 800 if !defined $TK_VERSION;
 
 sub Show {
@@ -26,19 +26,19 @@ sub Show {
 	package Tk;
 	require DynaLoader;
 	eval q{ require Tk::Event };
-	@ISA = qw(DynaLoader);
+	@Tk::ISA = qw(DynaLoader);
 	bootstrap Tk;
 	sub TranslateFileName { $_[0] }
 	sub SplitString { split /\s+/, $_[0] } # rough approximation
 
 	package Tk::Photo;
-	@ISA = qw(DynaLoader);
+	@Tk::Photo::ISA = qw(DynaLoader);
 	bootstrap Tk::Photo;
 
 	package Tk::FastSplash;
 	sub _Destroyed { }
 	$splash_screen = Tk::MainWindow::Create(".", $title);
-	bless $splash_screen, Tk::MainWindow;
+	bless $splash_screen, 'Tk::MainWindow';
 	$splash_screen->{"Exists"} = 1;
 
 	if ($override) {
@@ -70,7 +70,7 @@ sub Show {
 	    $l = Tk::Widget::Widget($splash_screen, $l);
 	}
 	$l->{'_TkValue_'} = $l_path;
-	bless $l, Tk::Widget;
+	bless $l, 'Tk::Widget';
 	Tk::pack($l, -fill => 'both', -expand => 1);
 	Tk::update($splash_screen);
     };

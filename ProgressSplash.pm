@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: ProgressSplash.pm,v 1.1 2001/11/25 13:34:43 eserte Exp $
+# $Id: ProgressSplash.pm,v 1.2 2001/11/25 13:45:38 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 2001 Slaven Rezic. All rights reserved.
@@ -13,8 +13,8 @@
 #
 
 package Tk::ProgressSplash;
-#use strict;
-$VERSION = 0.01;
+#use strict;use vars qw($TK_VERSION $VERSION);
+$VERSION = 0.02;
 $TK_VERSION = 800 if !defined $TK_VERSION;
 
 sub Show {
@@ -36,7 +36,7 @@ sub Show {
     my $self = {};
 
     my $Splash;
-    if ($splash_type eq 'fast') {
+    if ($splashtype eq 'fast') {
 	require Tk::FastSplash;
 	$Splash = 'Tk::FastSplash';
     } else {
@@ -56,8 +56,8 @@ sub Show {
 	$f = Tk::Widget::Widget($splash, $f);
     }
     $f->{'_TkValue_'} = $f_path;
-    bless $f, Tk::Widget;
-    Tk::pack($f, -anchor => 'w', -padx => 2, -pady => 2);
+    bless $f, 'Tk::Widget';
+    Tk::pack($f, -anchor => 'w'); # , -padx => 2, -pady => 2);
 
     $splash->{ProgressFrame} = $f;
 
@@ -69,7 +69,6 @@ sub Tk::FastSplash::Update { Tk::ProgressSplash::Update(@_) }
 
 sub Update {
     my($w, $frac) = @_;
-warn $w->{ImageWidth}*$frac;
     Tk::configure($w->{ProgressFrame}, -width => $w->{ImageWidth}*$frac);
     Tk::update($w);
 }
@@ -90,7 +89,7 @@ Tk::ProgressSplash - create a starting splash screen with a progress bar
     ...
     use Tk;
     ...
-    $splash->Update(0.1);
+    $splash->Update(0.1) if $splash;
     ...
     $splash->Destroy if $splash;
     MainLoop;
