@@ -8,7 +8,8 @@ uses some internal perl/Tk magic to create the splash screen very
 fast.
 
 Tk::Splash should work with older (402.*) and newer (800.*) Tk's.
-Future compatibility of Tk::SafeSplash cannot be assured :-)
+Tk::SafeSplash will only work with newer Tk's (800.* and upwards), but
+future compatibility cannot be assured :-)
 
 Installation
 
