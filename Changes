@@ -1,5 +1,9 @@
 Revision history for Perl extension Tk::Splash.
 
+0.04
+	Another fix for FastSplash.pm (setting Exists manually)
+	Documentation fix
+
 0.03
 	compatibility fix in FastSplash.pm (again :-( )
 
