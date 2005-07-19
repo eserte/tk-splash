@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: ProgressSplash.pm,v 1.7 2003/04/26 08:35:11 eserte Exp $
+# $Id: ProgressSplash.pm,v 1.8 2005/07/19 23:22:26 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 2001 Slaven Rezic. All rights reserved.
@@ -21,7 +21,7 @@ sub Show {
     my($pkg, @args) = @_;
 
     my @splash_arguments;
-    my $splashtype = 'fast';
+    my $splashtype = 'normal';
     for(my $i=0; $i<=$#args; $i++) {
 	if ($args[$i] eq '-splashtype') {
 	    $splashtype = $args[$i+1];
@@ -126,14 +126,14 @@ L<Tk::Splash>. Additionally you can specify:
 
 Set to "fast" if you want to use L<Tk::FastSplash> instead of
 L<Tk::Splash> as the underlying splash widget. "normal", "safe" or
-"slow" may be used for L<Tk::Splash>.
+"slow" may be used for L<Tk::Splash>. Default is "normal".
 
 =back
 
 =item Update
 
-Advance the progressbar (and make it visible, if it was not yet
-visible). The argument is a number between 0 and 1.
+Advance the progressbar and make it visible, if it was not yet
+visible. The argument is a floating number between 0 and 1.
 
 =item Destroy
 
