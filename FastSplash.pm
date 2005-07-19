@@ -1,7 +1,7 @@
 # -*- perl -*-
 
 #
-# $Id: FastSplash.pm,v 1.18 2003/11/21 18:30:56 eserte Exp $
+# $Id: FastSplash.pm,v 1.19 2005/07/19 23:22:36 eserte Exp $
 # Author: Slaven Rezic
 #
 # Copyright (C) 1999,2003 Slaven Rezic. All rights reserved.
@@ -178,17 +178,19 @@ Tk::FastSplash - create a fast starting splash screen
 
 =head1 DESCRIPTION
 
-This module creates a splash screen for perl/Tk programs. It uses
-lowlevel perk/Tk stuff, so upward compatibility is not given (the
-module should work at least for Tk800.015, .022 and .024). The splash screen
-is created with the B<Show> function. Supplied arguments are: filename
-of the displayed image, width and height of the image and the string
-for the title bar. C<$width> and C<$height> may be left undefined. If
-C<$overrideredirect> is set to a true value, then the splash screen
-will come without window manager decoration. If something goes wrong,
-then B<Show> will silently ignore all errors and continue without a
-splash screen. The splash screen can be destroyed with the B<Destroy>
-method, best short before calling B<MainLoop>.
+This module creates a fast loading splash screen for Perl/Tk programs.
+It uses lowlevel Perl/Tk stuff, so upward compatibility is not given
+(the module should work at least for Tk800.015, .022, .024, .025 and
+Tk804.025, but does not work with newer ActivePerl versions).
+
+The splash screen is created with the B<Show> function. Supplied
+arguments are: filename of the displayed image, width and height of
+the image and the string for the title bar. C<$width> and C<$height>
+may be left undefined. If C<$overrideredirect> is set to a true value,
+then the splash screen will come without window manager decoration. If
+something goes wrong, then B<Show> will silently ignore all errors and
+continue without a splash screen. The splash screen can be destroyed
+with the B<Destroy> method, best short before calling B<MainLoop>.
 
 If you want to run this module on a Tk402.xxx system, then you have to
 set the variable C<$Tk::FastSplash::TK_VERSION> to a value less than
@@ -203,11 +205,14 @@ about compatibility, then you should use L<Tk::Splash> instead. If
 your primary concern is speed, then C<Tk::FastSplash> is for you (and
 the primary reason I wrote this module). The splash window of
 C<Tk::FastSplash> should pop up 1 or 2 seconds faster than using
-C<Tk::Splash> or a vanilla L<Tk::Toplevel> window.
+L<Tk::Splash> or a vanilla L<Tk::Toplevel> window.
 
 =head1 BUGS
 
 Probably many.
+
+If used with newer ActivePerl (e.g. build 811), then it is possible
+that the application becomes unusable by using strange characters.
 
 You cannot call C<Tk::FastSplash> twice in one application.
 
@@ -229,6 +234,21 @@ screen in check or debug mode:
 
 The -display switch is not honoured (but setting the environment
 variable DISPLAY will work).
+
+XXX Avoid Win32 raise/lower problem with this code (maybe)?
+
+    # Windows constants
+    my ($ONTOP, $NOTOP, $TOP) = (-1, -2, 0);
+    my ($SWP_NOMOVE, $SWP_NOSIZE) = (2, 1);
+    
+    my $SetWindowPos        = new Win32::API("user32", "SetWindowPos", 'NNNNNNN', 'N'); 
+    my $FindWindow          = new Win32::API("user32", "FindWindow", 'PP', 'N'); 
+    
+    # Reestablish Z order
+    my $class = "TkTopLevel";
+    my $topHwnd = $FindWindow->Call($class, $w->title);
+    $topHwnd and $SetWindowPos->Call($topHwnd, $ONTOP, 0, 0, 0, 0, $SWP_NOMOVE | $SWP_NOSIZE);
+
 
 =head1 AUTHOR
 
