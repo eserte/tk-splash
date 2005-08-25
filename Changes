@@ -1,5 +1,8 @@
 Revision history for Perl extension Tk::Splash.
 
+0.14
+	doc update for JPEG and PNG images
+
 0.13
 	another workaround for the Tk804 workaround
 
