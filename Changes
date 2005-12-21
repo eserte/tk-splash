@@ -1,5 +1,8 @@
 Revision history for Perl extension Tk::Splash.
 
+0.15
+	doc update for Tk::ProgressSplash (about -fast option)
+
 0.14
 	doc update for JPEG and PNG images
 
