@@ -258,7 +258,7 @@ XXX Avoid Win32 raise/lower problem with this code (maybe)?
 
 =head1 AUTHOR
 
-Slaven Rezic (slaven@rezic.de)
+Slaven Rezic <srezic@cpan.org>
 
 =head1 SEE ALSO
 

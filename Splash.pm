@@ -100,7 +100,7 @@ splash screen will also occur if the script is started using perl's C<-c>
 
 =head1 AUTHOR
 
-Slaven Rezic
+Slaven Rezic <srezic@cpan.org>
 
 =head1 SEE ALSO
 
