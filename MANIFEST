@@ -2,9 +2,9 @@ Changes
 MANIFEST
 MANIFEST.SKIP
 Makefile.PL
-Splash.pm
-FastSplash.pm
-ProgressSplash.pm
+lib/Tk/Splash.pm
+lib/Tk/FastSplash.pm
+lib/Tk/ProgressSplash.pm
 t/00splash.t
 t/01fastsplash.t
 t/02fastsplash.t
