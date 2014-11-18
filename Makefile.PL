@@ -3,9 +3,9 @@ use ExtUtils::MakeMaker;
 # the contents of the Makefile that is written.
 WriteMakefile(
     'NAME'	=> 'Tk::Splash',
-    'VERSION'   => '0.14_99',
+    'VERSION'   => '0.15',
     'dist'      => {'POSTOP'=>'-$(CHMOD) 644 $(DISTVNAME).tar$(SUFFIX)'},
-    'ABSTRACT_FROM' => 'Splash.pm',
+    'ABSTRACT_FROM' => 'lib/Tk/Splash.pm',
     'AUTHOR' => 'Slaven Rezic (srezic@cpan.org)',
     'PREREQ_PM' => {'Tk' => 800},
 );

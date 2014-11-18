@@ -1,5 +1,8 @@
 Revision history for Perl extension Tk::Splash.
 
+0.16
+	added lib directory
+
 0.15
 	doc update for Tk::ProgressSplash (about -fast option)
 
