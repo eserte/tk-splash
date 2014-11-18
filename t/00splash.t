@@ -1,26 +1,40 @@
 # -*- perl -*-
 
-BEGIN { $| = 1; print "1..3\n"; }
-END {print "not ok 1\n" unless $loaded;}
+use strict;
 
 BEGIN {
-    require Tk::Splash;
-    $loaded = 1;
-    print "ok 1\n";
+    if (!eval q{
+	use Test::More;
+	1;
+    }) {
+	print "# tests only work with installed Test::More module\n";
+	print "1..1\n";
+	print "ok 1\n";
+	exit;
+    }
 }
 
 BEGIN {
+    plan tests => 3;
+}
+
+BEGIN {
+    require_ok 'Tk::Splash';
+}
+
+my $splash;
+BEGIN {
     $splash = Tk::Splash->Show(Tk->findINC("Xcamel.gif"), 60, 60, "Splash");
-    print "ok 2\n";
+    ok $splash;
 }
 
 use Tk;
 
-$top=tkinit;
+my $top=tkinit;
 $top->update;
 
 $splash->Destroy;
-print "ok 3\n";
+ok !Tk::Exists($splash), 'splash window destroyed';
 
 $top->update;
-sleep 1;
+#sleep 1;
