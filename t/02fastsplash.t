@@ -1,5 +1,9 @@
 # -*- perl -*-
 
+print "1..0 # skip Tk::FastSplash not supported anymore\n";
+
+__END__
+
 BEGIN { $| = 1; $^W = 0; print "1..3\n"; }
 END {print "not ok 1\n" unless $loaded;}
 
