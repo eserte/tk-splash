@@ -1,4 +1,5 @@
 # common files
+^\.git\b
 \bRCS\b
 \bChangeLog\b
 ^MANIFEST\.
@@ -11,12 +12,16 @@
 \.old$
 \.xvpics/
 \.rcsignore(_rx)?$
+\.gitignore$
 ^blib/
 ^MakeMaker-\d
 \.tar\.gz$
 patch\.gz$
 ^pm_to_blib$
 \.ppd$
+^MYMETA\.json$
+^MYMETA\.yml$
+^\.travis\.yml$
 # private common files
 \.ok2cgi$
 \.copynewer.SKIP$
