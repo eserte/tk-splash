@@ -1,7 +1,9 @@
 Revision history for Perl extension Tk::Splash.
 
 0.16
+	Tk::FastSplash is now declared as unsupported
 	added lib directory
+	reworked test scripts
 
 0.15
 	doc update for Tk::ProgressSplash (about -fast option)
