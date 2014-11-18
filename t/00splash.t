@@ -23,18 +23,29 @@ BEGIN {
 }
 
 my $splash;
+my $skip_tests;
 BEGIN {
-    $splash = Tk::Splash->Show(Tk->findINC("Xcamel.gif"), 60, 60, "Splash");
-    ok $splash;
+    $splash = eval { Tk::Splash->Show(Tk->findINC("Xcamel.gif"), 60, 60, "Splash") };
+    if ($@ =~ m{couldn't connect to display}) {
+	$skip_tests = 1;
+    }
+ SKIP: {
+	skip "No display?", 1 if $skip_tests;
+	ok $splash;
+    }
 }
 
 use Tk;
 
-my $top=tkinit;
-$top->update;
+SKIP: {
+    skip "No display?", 1 if $skip_tests;
 
-$splash->Destroy;
-ok !Tk::Exists($splash), 'splash window destroyed';
+    my $top=tkinit;
+    $top->update;
 
-$top->update;
-#sleep 1;
+    $splash->Destroy;
+    ok !Tk::Exists($splash), 'splash window destroyed';
+
+    $top->update;
+    #sleep 1;
+}
