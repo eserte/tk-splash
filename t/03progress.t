@@ -38,6 +38,7 @@ SKIP: {
 
     $splash->Update(0.1);
     my $top = tkinit;
+    $top->geometry('+10+10'); # for twm
     $splash->Update(0.2); $top->after(300);
     $top->update;
     $splash->Raise;

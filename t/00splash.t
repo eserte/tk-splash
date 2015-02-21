@@ -41,6 +41,7 @@ SKIP: {
     skip "No display?", 1 if $skip_tests;
 
     my $top=tkinit;
+    $top->geometry('+10+10'); # for twm
     $top->update;
 
     $splash->Destroy;
