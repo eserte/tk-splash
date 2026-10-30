@@ -1,7 +1,7 @@
 README
 ------
 
-This is Tk::Splash, a perl/Tk module for creating splash screens.
+This is Tk::Splash, a Perl/Tk module for creating splash screens.
 
 Tk::ProgressSplash is a splash window with a progress bar.
 
